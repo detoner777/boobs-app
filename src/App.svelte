@@ -12,6 +12,7 @@
     background: #2a4362;
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
 
   main {
@@ -29,11 +30,12 @@
 </style>
 
 <main>
-  <Boobs {boob} on:click={() => events.set('light')} />
+  <span>Boobs tracker</span>
+  <Boobs {boob} />
   <div class="item-container">
     {#if JSON.parse($events)?.length > 0}
-      {#each JSON.parse($events).reverse() as event}
-        <Item time={event.time} boob={event.boob} />
+      {#each JSON.parse($events).reverse() as event, index (event.id)}
+        <Item time={event.time} boob={event.boob} {index} />
       {/each}
     {/if}
   </div>
